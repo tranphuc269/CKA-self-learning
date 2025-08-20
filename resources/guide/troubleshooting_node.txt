@@ -1,0 +1,16 @@
+- Control-plane failure:
+  - kubectl get nodes (for check status nodes)
+  - kubectl get pods (check status pod running)
+  - kubectl get pods -n kube-system (for check status in control-plane)
+  - check status when ssh to control-plane node:
+    - service kube-apiserver status
+    - service kube-controller-manager status
+    - service kube-scheduler status
+  - check log deploy : sudo journalctl -u kube-apiserver
+- Worker node failure:
+  - kubectl get nodes
+  - kubectl describe node worker-01
+  - ssh to worker-node:
+    - check kubelet: service kubelet status
+    - check log kubelet:sudo journalctl -u kubelet
+    - check expired SSL: openssl x509 -in /var/lib/kubelet/worker-1.crt -text => renew cert
